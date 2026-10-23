@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 moveInput;
     public float moveSpeed;
     public float xRange;
+    public float zRange;
     public GameObject projectilePrefab;
 
     void OnMove(InputValue value)
@@ -36,6 +37,14 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
         }
-        transform.Translate(Vector3.right * moveInput.x * moveSpeed * Time.deltaTime);
+        if (transform.position.z < 0)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        }
+        else if (transform.position.z > zRange)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zRange);
+        }
+        transform.Translate(Vector3.right * moveInput.x * moveSpeed * Time.deltaTime + Vector3.forward * moveInput.y * moveSpeed * Time.deltaTime);
     }
 }
