@@ -4,7 +4,10 @@ public class DetectCollisions : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
-        Destroy(other.gameObject);
+        if (!other.CompareTag("Player")) 
+        {
+            Destroy(gameObject);
+            Destroy(other.gameObject); 
+        }
     }
 }

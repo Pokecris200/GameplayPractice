@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,7 @@ public class SpawnManager : MonoBehaviour
     public InputAction spawnAction;
     private float spawnRangeX = 20f;
     private float spawnPosZ = 20f;
+    public float wildSpawnPosX;
 
     private float startDelay = 2f;
     private float spawnInterval = 1.5f;
@@ -16,6 +18,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         InvokeRepeating("SpawnRandomAnimal", startDelay, spawnInterval);
+        InvokeRepeating("SpawnWildAnimal", startDelay, spawnInterval);
         spawnAction.Enable();
     }
 
@@ -30,6 +33,15 @@ public class SpawnManager : MonoBehaviour
         int animalIndex = Random.Range(0, animalPrefabs.Length);
         Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), 0, spawnPosZ);
         Instantiate(animalPrefabs[animalIndex], spawnPos, animalPrefabs[animalIndex].transform.rotation);
+    }
+
+    void SpawnWildAnimal()
+    {
+        float[] spawnLimits = {-wildSpawnPosX, wildSpawnPosX};
+        int animalIndex = Random.Range(0, animalPrefabs.Length);
+        Vector3 spawnPos = new Vector3(spawnLimits[Random.Range(0,2)], 0, Random.Range(0, spawnPosZ));
+        float rotationHor = spawnPos.x == wildSpawnPosX ? 90f: -90f;
+        Instantiate(animalPrefabs[animalIndex], spawnPos, animalPrefabs[animalIndex].transform.rotation * Quaternion.Euler(0,rotationHor,0));
     }
 
 }

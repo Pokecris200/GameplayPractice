@@ -47,4 +47,12 @@ public class PlayerController : MonoBehaviour
         }
         transform.Translate(Vector3.right * moveInput.x * moveSpeed * Time.deltaTime + Vector3.forward * moveInput.y * moveSpeed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        { 
+            Debug.Log("Game Over"); 
+        }
+    }
 }

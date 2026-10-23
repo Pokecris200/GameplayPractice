@@ -936,7 +936,7 @@ GameObject:
   - component: {fileID: 4686874919870692263}
   m_Layer: 0
   m_Name: FoxPrefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
