@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     public float xRange;
     public float zRange;
+    private int lives = 3;
     public GameObject projectilePrefab;
 
     void OnMove(InputValue value)
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Debug.Log("You have " + lives + " lives");
     }
 
     // Update is called once per frame
@@ -51,8 +52,16 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
-        { 
-            Debug.Log("Game Over"); 
+        {
+            if (lives > 0)
+            {
+                lives -= 1;
+                Debug.Log("Lives:" + lives);
+            }
+            else
+            {
+                Debug.Log("Game Over");
+            }
         }
     }
 }

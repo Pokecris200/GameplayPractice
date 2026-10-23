@@ -12,11 +12,13 @@ public class SpawnManager : MonoBehaviour
 
     private float startDelay = 2f;
     private float spawnInterval = 1.5f;
+    private int score = 0;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Debug.Log("Score:" + score);
         InvokeRepeating("SpawnRandomAnimal", startDelay, spawnInterval);
         InvokeRepeating("SpawnWildAnimal", startDelay, spawnInterval);
         spawnAction.Enable();
@@ -25,7 +27,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void SpawnRandomAnimal()
@@ -37,11 +39,21 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnWildAnimal()
     {
-        float[] spawnLimits = {-wildSpawnPosX, wildSpawnPosX};
+        float[] spawnLimits = { -wildSpawnPosX, wildSpawnPosX };
         int animalIndex = Random.Range(0, animalPrefabs.Length);
-        Vector3 spawnPos = new Vector3(spawnLimits[Random.Range(0,2)], 0, Random.Range(0, spawnPosZ));
-        float rotationHor = spawnPos.x == wildSpawnPosX ? 90f: -90f;
-        Instantiate(animalPrefabs[animalIndex], spawnPos, animalPrefabs[animalIndex].transform.rotation * Quaternion.Euler(0,rotationHor,0));
+        Vector3 spawnPos = new Vector3(spawnLimits[Random.Range(0, 2)], 0, Random.Range(0, spawnPosZ));
+        float rotationHor = spawnPos.x == wildSpawnPosX ? 90f : -90f;
+        Instantiate(animalPrefabs[animalIndex], spawnPos, animalPrefabs[animalIndex].transform.rotation * Quaternion.Euler(0, rotationHor, 0));
+    }
+
+    public void UpdateScore(int newScore)
+    {
+        score += newScore;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 
 }
